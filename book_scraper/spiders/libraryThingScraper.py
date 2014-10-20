@@ -3,7 +3,7 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from book_scraper.items import BookItem
 
-isbns = ['9780099479314', '9780679745587']
+isbns = ['9780099479314', '9780679745587', '0061059064']
 
 class LibraryThingSpider(scrapy.Spider):
     name = 'LibraryThing'
@@ -18,13 +18,17 @@ class LibraryThingSpider(scrapy.Spider):
             pass
 
         item = BookItem()
+        item['isbn'] = self.isbn
+
         table = response.xpath('//div[@id="fwikiContainerTablediv"]//tr')
         for row in table:
             rowData = row.extract()
             if 'Original publication date' in rowData:
                 item['year'] = row.xpath('.//a/text()').extract()[0]
-        item['isbn'] = self.isbn
+            elif 'Important places' in rowData:
+                item['places'] = row.xpath('.//a/text()').extract()
+            elif 'People/Characters' in rowData:
+                item['characters'] = row.xpath('.//a/text()').extract()
 
         yield item
-
 
