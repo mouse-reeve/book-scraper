@@ -3,7 +3,6 @@ from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from book_scraper.items import BookItem
 
-# As I Lay Dying
 isbns = ['9780099479314', '9780679745587']
 
 class LibraryThingSpider(scrapy.Spider):
@@ -16,14 +15,13 @@ class LibraryThingSpider(scrapy.Spider):
 
     def parse(self, response):
         if not 'commonknowledge' in response.url:
-            print 'book page: ' + response.url
             pass
+
         item = BookItem()
         table = response.xpath('//div[@id="fwikiContainerTablediv"]//tr')
         for row in table:
             rowData = row.extract()
             if 'Original publication date' in rowData:
-                print row.xpath('.//a/text()').extract()
                 item['year'] = row.xpath('.//a/text()').extract()[0]
         item['isbn'] = self.isbn
 
