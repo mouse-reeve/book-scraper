@@ -1,22 +1,31 @@
+import csv
 import scrapy
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from book_scraper.items import BookItem
 
-isbns = ['9780099479314', '9780679745587', '0061059064']
-
 class LibraryThingSpider(scrapy.Spider):
     name = 'LibraryThing'
     allowed_domains = ['librarything.com']
     start_urls = [];
-    for isbn in isbns:
-        start_urls.append('http://www.librarything.com/isbn/' + isbn)
-    rules = [Rule(LinkExtractor(allow=['/commonknowledge/\d+']), 'parse')]
+
+    # I should generalize this
+    fileName = 'library.csv'
+
+    with open(fileName, 'rb') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if 'isbn' in row:
+                isbn = row['isbn']
+                start_urls.append('http://www.librarything.com/isbn/' + isbn)
+            else:
+                continue
+
+    rules = [
+        Rule(LinkExtractor(allow=['/commonknowledge/\d+']), 'parse')
+    ]
 
     def parse(self, response):
-        if not 'commonknowledge' in response.url:
-            pass
-
         item = BookItem()
         item['isbn'] = self.isbn
 
@@ -31,4 +40,5 @@ class LibraryThingSpider(scrapy.Spider):
                 item['characters'] = row.xpath('.//a/text()').extract()
 
         yield item
+
 
