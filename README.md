@@ -1,4 +1,4 @@
 book-scraper
 ============
 
-Crawls librarything to extract "common knowledge" data about books based on a list of ISBNs.
+Crawls LibraryThing to extract character and place data from "common knowledge" for books in a LibraryThing user's catalog. If the LibraryThing user is me.
