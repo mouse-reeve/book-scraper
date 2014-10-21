@@ -22,7 +22,7 @@ class LibraryThingSpider(scrapy.Spider):
     def parse(self, response):
         for link in response.xpath('//a/@href'):
             path = link.extract()
-            if re.match('\/work\/\d+\/book\/\d+', path):
+            if re.match('\/work\/\d+\/book\/\d+', path) or re.match('\/catalog_bottom.php\?view\=tripofmice\&offset=\d+', path):
                 yield scrapy.http.Request('https://www.librarything.com/' + path)
 
         item = BookItem()
@@ -38,7 +38,11 @@ class LibraryThingSpider(scrapy.Spider):
             if 'Original publication date' in rowData:
                 print row.xpath('.//a/text()').extract()
                 try:
-                    item['year'] = row.xpath('.//a/text()').extract()[0]
+                    year = row.xpath('.//a/text()').extract()[0]
+                    # normalizes dates assuming the formats YYYY-MM-DD or
+                    # YYYY-YY, both of which I've seen in the data.
+                    year = year[0:4]
+                    item['year']  = year
                 except:
                     # maybe not ideal error handling here?
                     pass
