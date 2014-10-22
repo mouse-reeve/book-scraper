@@ -6,3 +6,4 @@ class BookItem(scrapy.Item):
     characters = scrapy.Field()
     places = scrapy.Field()
     purchasedAt = scrapy.Field()
+    tags = scrapy.Field()

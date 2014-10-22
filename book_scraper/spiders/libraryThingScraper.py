@@ -24,6 +24,7 @@ class LibraryThingSpider(scrapy.Spider):
         except:
             pass
 
+        # Common Knowledge page
         table = response.xpath('//div[@id="fwikiContainerTablediv"]//tr')
         for row in table:
             rowData = row.extract()
@@ -51,6 +52,10 @@ class LibraryThingSpider(scrapy.Spider):
                 store = row.xpath('.//div[@class="xlocation"]//a/text()').extract()
                 if store:
                     item['purchasedAt'] = store
+            if 'Tags' in rowData:
+                tags = row.xpath('.//td[@class="bookeditfield"]//a/text()').extract()
+                if tags:
+                    item['tags'] = tags
 
         if item:
             yield item
