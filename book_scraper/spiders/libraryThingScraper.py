@@ -36,13 +36,16 @@ class LibraryThingSpider(scrapy.Spider):
                     year = year[0:4]
                     item['year']  = year
                 except:
-                    print '----YEAR ERROR----'
-                    print row.xpath('.//a/text()').extract()
                     pass
+
             elif 'Important places' in rowData:
                 item['places'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
+
             elif 'People/Characters' in rowData:
                 item['characters'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
+
+            elif 'Important events' in rowData:
+                item['events'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
 
         # Details page
         table = response.xpath('//table[@id="book_bookInformationTable"]//tr')
@@ -52,6 +55,7 @@ class LibraryThingSpider(scrapy.Spider):
                 store = row.xpath('.//div[@class="xlocation"]//a/text()').extract()
                 if store:
                     item['purchasedAt'] = store
+
             if 'Tags' in rowData:
                 tags = row.xpath('.//td[@class="bookeditfield"]//a/text()').extract()
                 if tags:
