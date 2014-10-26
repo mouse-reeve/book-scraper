@@ -1,7 +1,5 @@
 import re
 import scrapy
-from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors import LinkExtractor
 from book_scraper.items import BookItem
 
 class LibraryThingSpider(scrapy.Spider):
@@ -24,7 +22,7 @@ class LibraryThingSpider(scrapy.Spider):
         except:
             pass
 
-        # Common Knowledge page
+        # About page (with common knowledge)
         table = response.xpath('//div[@id="fwikiContainerTablediv"]//tr')
         for row in table:
             rowData = row.extract()
