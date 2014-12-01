@@ -11,8 +11,7 @@ class LibraryThingSpider(scrapy.Spider):
         for link in response.xpath('//a/@href'):
             path = link.extract()
             if re.match('\/work\/\d+\/book\/\d+', path)\
-                    or re.match('\/catalog_bottom.php\?view\=tripofmice\&offset=\d+', path)\
-                    or re.match('\/work\/\d+\/details\/\d+', path):
+                    or re.match('\/catalog_bottom.php\?view\=tripofmice\&offset=\d+', path):
                 yield scrapy.http.Request('https://www.librarything.com/' + path)
 
         item = BookItem()
@@ -44,20 +43,6 @@ class LibraryThingSpider(scrapy.Spider):
 
             elif 'Important events' in rowData:
                 item['events'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
-
-        # Details page
-        table = response.xpath('//table[@id="book_bookInformationTable"]//tr')
-        for row in table:
-            rowData = row.extract()
-            if 'From where' in rowData:
-                store = row.xpath('.//div[@class="xlocation"]//a/text()').extract()
-                if store:
-                    item['purchasedAt'] = store
-
-            if 'Tags' in rowData:
-                tags = row.xpath('.//td[@class="bookeditfield"]//a/text()').extract()
-                if tags:
-                    item['tags'] = tags
 
         if item:
             yield item
