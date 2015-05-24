@@ -31,7 +31,7 @@ class LibraryThingSpider(scrapy.Spider):
                     # normalizes dates assuming the formats YYYY-MM-DD or
                     # YYYY-YY, both of which I've seen in the data.
                     year = year[0:4]
-                    item['year']  = year
+                    item['date_first_published'] = year
                 except:
                     pass
 
