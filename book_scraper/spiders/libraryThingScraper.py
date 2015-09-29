@@ -48,7 +48,8 @@ class LibraryThingSpider(scrapy.Spider):
             elif 'Important events' in rowData:
                 item['events'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
 
-        if item and ('date_first_published' in item
-                     or item['places'] or item['characters'] or item['events']):
-            yield item
+        if item:
+            item = {key:value for key, value in item.iteritems() if value}
+            if len(item) > 1:
+                yield item
 
