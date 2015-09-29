@@ -5,3 +5,5 @@ lib/
 .Python
 *.swp
 .DS_Store
+
+pip-selfcheck.json
