@@ -1,24 +1,27 @@
+''' Scrapes data on books in a librarything user's collection '''
 import re
 import scrapy
 from book_scraper.items import BookItem
 
 class LibraryThingSpider(scrapy.Spider):
+    ''' Defines the behavior of the crawling spider '''
     name = 'LibraryThing'
     allowed_domains = ['librarything.com']
     start_urls = ['https://www.librarything.com/catalog_bottom.php?view=tripofmice']
 
     def parse(self, response):
+        ''' reads pages' markup '''
         for link in response.xpath('//a/@href'):
             path = link.extract()
-            if re.match('\/work\/\d+\/book\/\d+', path)\
-                    or re.match('\/catalog_bottom.php\?view\=tripofmice\&offset=\d+', path):
+            if re.match(r'\/work\/\d+\/book\/\d+', path)\
+                    or re.match(r'\/catalog_bottom.php\?view\=tripofmice\&offset=\d+', path):
                 yield scrapy.http.Request('https://www.librarything.com/' + path)
 
         item = BookItem()
 
         try:
             item['isbn'] = response.xpath('//meta[@property="books:isbn"]/@content').extract()[0]
-        except:
+        except IndexError:
             pass
 
         # About page (with common knowledge)
@@ -32,18 +35,20 @@ class LibraryThingSpider(scrapy.Spider):
                     # YYYY-YY, both of which I've seen in the data.
                     year = year[0:4]
                     item['date_first_published'] = year
-                except:
+                except IndexError:
                     pass
 
             elif 'Important places' in rowData:
                 item['places'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
 
             elif 'People/Characters' in rowData:
-                item['characters'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
+                item['characters'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()') \
+                                        .extract()
 
             elif 'Important events' in rowData:
                 item['events'] = row.xpath('.//div[@class="fwikiAtomicValue"]//a/text()').extract()
 
-        if item:
+        if item and ('date_first_published' in item
+                     or item['places'] or item['characters'] or item['events']):
             yield item
 
