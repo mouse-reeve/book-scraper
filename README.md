@@ -23,14 +23,14 @@ Crawls LibraryThing to extract data from a LibraryThing user's catalog. If the L
 
 ### Centuries
 - 194 1900s
-- 127 2000s
+- 128 2000s
 - 30 1800s
 - 5 1600s
 - 4 1500s
 
 ### Decades
 
-- 86 2000s
+- 87 2000s
 - 56 1990s
 - 41 2010s
 - 36 1980s
