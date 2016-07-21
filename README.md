@@ -5,39 +5,39 @@ Crawls LibraryThing to extract data from a LibraryThing user's catalog. If the L
 
 ## Stats
 ### Most common places
-- 27 "London, England, UK"
-- 20 "England, UK"
-- 18 "New York, New York, USA"
-- 13 "USA"
+- 23 "London, England, UK"
+- 16 "New York, New York, USA"
+- 16 "England, UK"
 - 10 "The Dreaming"
-- 10 "Japan"
-- 8 "San Francisco, California, USA"
 - 8 "Paris, France"
-- 7 "Los Angeles, California, USA"
-- 7 "California, USA"
-- 6 "Middle-earth"
-- 6 "Mars"
-- 6 "Gotham City, New Jersey, USA"
-- 5 "St. Petersburg, Russia"
-- 5 "Moscow, Russia"
+- 7 "San Francisco, California, USA"
+- 6 "USA"
+- 6 "Middle-earth (fictional)"
+- 6 "Anduin, Rhovanion, Middle-earth (fictional)"
+- 5 "Los Angeles, California, USA"
+- 5 "Japan"
+- 5 "Gotham City, New Jersey, USA"
+- 5 "California, USA"
+- 4 "United States of America"
+- 4 "The Shire, Eriador, Middle-earth (fictional)"
 
 ### Centuries
-- 197 1900s
-- 97 2000s
-- 30 1800s
+- 163 1900s
+- 78 2000s
+- 24 1800s
 - 5 1600s
 - 4 1500s
 
 ### Decades
 
-- 58 2000s
-- 55 1990s
-- 39 2010s
-- 37 1980s
-- 31 1960s
-- 22 1970s
-- 14 1930s
-- 11 1950s
-- 10 1940s
-- 8 1920s
+- 48 1990s
+- 44 2000s
+- 34 2010s
+- 29 1960s
+- 28 1980s
+- 19 1970s
+- 10 1930s
+- 9 1950s
+- 7 1940s
+- 7 1890s
 
