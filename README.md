@@ -21,14 +21,14 @@ Crawls LibraryThing to extract data from a LibraryThing user's catalog. If the L
 - 6 "Italy"
 - 6 "Anduin (fictional)"
 
-### Centuries
+### Century of first publication
 - 190 1900s
 - 96 2000s
 - 30 1800s
 - 6 1600s
-- 5 ca00s
+- 5 1500s
 
-### Decades
+### Decade of fist publication
 
 - 55 2000s
 - 54 1990s

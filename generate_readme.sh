@@ -11,12 +11,12 @@ $(jq '.[].places | select(.) | .[]' items.json | sort | uniq -c | sort -r | head
     echo "- $line"
 done )
 
-### Centuries
-$(jq '.[].date_first_published | select(.)' items.json | sed 's/"\(..\).*\"/\1/g' | sort | uniq -c | sort -r | head -5 | while read line; do
+### Century of first publication
+$(jq '.[].date_first_published | select(.)' items.json | grep "\d\+" | sed 's/"\(..\).*\"/\1/g' | sort | uniq -c | sort -r | head -5 | while read line; do
     echo "- `echo $line`00s"
 done )
 
-### Decades
+### Decade of fist publication
 
 $(jq '.[].date_first_published | select(.)' items.json | sed 's/"\(...\).\"/\1/g' | sort | uniq -c | sort -r | head -10 | while read line; do
     echo "- `echo $line`0s"
